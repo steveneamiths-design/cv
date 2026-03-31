@@ -3,17 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CV Studio | Maroon & Yellow</title>
+    <title>CV Studio | Professional Builder</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
     <style>
         :root {
             --primary: #7D1128;
             --accent: #FFC107;
             --bg: #fdfaf5;
+            --text-dark: #333;
         }
-        * { box-sizing: border-box; font-family: 'Montserrat', sans-serif; }
-        body { background: var(--bg); padding: 40px 20px; display: flex; justify-content: center; margin: 0; }
-        .builder-card { background: #fff; padding: 40px; border-radius: 12px; box-shadow: 0 10px 30px rgba(125,17,40,0.08); width: 100%; max-width: 800px; border-top: 6px solid var(--primary); }
+        * { box-sizing: border-box; font-family: 'Montserrat', sans-serif; margin: 0; padding: 0; }
+        body { background: var(--bg); padding: 40px 20px; display: flex; justify-content: center; min-height: 100vh; }
+        
+        #form-section { background: #fff; padding: 40px; border-radius: 12px; box-shadow: 0 10px 30px rgba(125,17,40,0.08); width: 100%; max-width: 800px; border-top: 6px solid var(--primary); }
         h2 { text-align: center; color: var(--primary); margin-bottom: 30px; font-weight: 800; font-size: 2.2rem; }
         .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
         .input-group { margin-bottom: 20px; }
@@ -22,55 +24,121 @@
         input:focus, textarea:focus { border-color: var(--accent); outline: none; background: #fff; box-shadow: 0 0 0 3px rgba(255,193,7,0.1); }
         button { width: 100%; padding: 15px; background: var(--primary); color: var(--accent); border: none; border-radius: 6px; font-size: 1.1rem; font-weight: 700; cursor: pointer; margin-top: 10px; transition: 0.2s; text-transform: uppercase; letter-spacing: 1.5px;}
         button:hover { background: #600D1F; transform: translateY(-1px); }
+
+        #cv-section { display: none; width: 100%; max-width: 950px; background: #fff; box-shadow: 0 15px 35px rgba(0,0,0,0.1); border-radius: 8px; overflow: hidden; font-family: 'Lora', serif; }
+        .left-col { width: 35%; background: var(--primary); color: var(--accent); padding: 50px 40px; }
+        .profile-img-container { text-align: center; margin-bottom: 30px; }
+        .profile-img { width: 170px; height: 170px; border-radius: 50%; object-fit: cover; border: 4px solid var(--accent); padding: 5px; background: white; }
+        .left-section-title { font-family: 'Montserrat', sans-serif; font-size: 1rem; text-transform: uppercase; letter-spacing: 2px; border-bottom: 1px solid rgba(255,193,7,0.2); padding-bottom: 10px; margin: 30px 0 15px; font-weight: 700; }
+        .contact-info p { margin-bottom: 15px; font-size: 0.9rem; font-family: 'Montserrat', sans-serif; line-height: 1.5; color: white; }
+        .contact-info span { display: block; font-size: 0.75rem; color: #aaa; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 3px; }
+        .skills-list { list-style: none; font-family: 'Montserrat', sans-serif; }
+        .skills-list li { margin-bottom: 10px; font-size: 0.9rem; padding-left: 15px; position: relative; color: white; }
+        .skills-list li::before { content: "•"; color: var(--accent); position: absolute; left: 0; font-size: 1.2rem; top: -2px; }
+        
+        .right-col { width: 65%; padding: 60px 50px; position: relative; }
+        .name-header { margin-bottom: 40px; }
+        .name-header h1 { font-family: 'Montserrat', sans-serif; font-size: 3.2rem; font-weight: 800; color: var(--primary); line-height: 1.1; margin-bottom: 5px; text-transform: uppercase; }
+        .name-header h2 { font-family: 'Montserrat', sans-serif; font-size: 1.4rem; font-weight: 500; color: var(--accent); letter-spacing: 1px; }
+        .summary-text { font-size: 1.05rem; line-height: 1.8; color: #555; margin-bottom: 40px; font-style: italic; }
+        .right-section-title { font-family: 'Montserrat', sans-serif; font-size: 1.4rem; font-weight: 700; color: var(--primary); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 25px; display: flex; align-items: center; }
+        .right-section-title::after { content: ""; flex: 1; height: 2px; background: var(--accent); margin-left: 15px; opacity: 0.5; }
+        .timeline-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 5px; }
+        .timeline-title { font-family: 'Montserrat', sans-serif; font-size: 1.2rem; font-weight: 700; color: var(--text-dark); }
+        .timeline-date { font-family: 'Montserrat', sans-serif; font-size: 0.9rem; font-weight: 600; color: var(--primary); background: var(--accent); padding: 5px 12px; border-radius: 20px;}
+        .timeline-subtitle { font-family: 'Montserrat', sans-serif; font-size: 1rem; font-weight: 500; color: #666; margin-bottom: 10px; }
+        .timeline-desc { font-size: 0.95rem; line-height: 1.6; color: #555; }
+        .btn-reset { position: absolute; top: 20px; right: 30px; background: var(--primary); color: var(--accent); text-decoration: none; padding: 10px 20px; font-family: 'Montserrat', sans-serif; font-size: 0.8rem; font-weight: 700; border-radius: 4px; cursor: pointer; border: none; text-transform: uppercase; }
+        
+        @media (max-width: 768px) {
+            #cv-section { flex-direction: column; display: none; }
+            .left-col, .right-col { width: 100%; padding: 30px; }
+            .btn-reset { position: relative; top: 0; right: 0; display: inline-block; margin-bottom: 20px; }
+        }
     </style>
 </head>
 <body>
 
-<div class="builder-card">
-    <h2>Paghimo og CV nimo bai</h2>
-    <form action="amiths.php" method="POST" enctype="multipart/form-data">
-        
-        <div class="grid-2">
-            <div class="input-group"><label>Full Name</label><input type="text" name="fullName" required placeholder="Stevene Amiths"></div>
-            <div class="input-group"><label>Profession</label><input type="text" name="profession" required placeholder="IT Specialist"></div>
+    <div id="form-section" class="builder-card">
+        <h2>Design Your CV</h2>
+        <form id="cvForm">
+            <div class="grid-2">
+                <div class="input-group"><label>Full Name</label><input type="text" id="in-name" required placeholder="Stevene Amiths"></div>
+                <div class="input-group"><label>Profession</label><input type="text" id="in-profession" required placeholder="IT Specialist"></div>
+            </div>
+            <div class="grid-2">
+                <div class="input-group"><label>Email</label><input type="email" id="in-email" required placeholder="stevene@evsu.edu.ph"></div>
+                <div class="input-group"><label>Phone</label><input type="text" id="in-phone" required placeholder="+63 912 345 6789"></div>
+            </div>
+            <div class="input-group"><label>Address</label><input type="text" id="in-address" required placeholder="Iloilo City, Philippines"></div>
+            <div class="grid-2">
+                <div class="input-group"><label>Skills (comma separated)</label><input type="text" id="in-skills" required placeholder="PHP, HTML, Design"></div>
+                <div class="input-group"><label>Profile Picture</label><input type="file" id="in-pic" accept="image/*" required></div>
+            </div>
+            <div class="input-group"><label>Professional Summary</label><textarea id="in-summary" rows="3" required placeholder="Short bio..."></textarea></div>
+            <hr style="border: 0; border-top: 1px solid var(--primary); margin: 30px 0; opacity: 0.3;">
+            <div class="grid-2">
+                <div class="input-group"><label>Job Title</label><input type="text" id="in-job-title" required placeholder="Web Developer"></div>
+                <div class="input-group"><label>Company</label><input type="text" id="in-company" required placeholder="Tech Corp"></div>
+            </div>
+            <div class="grid-2">
+                <div class="input-group"><label>Duration</label><input type="text" id="in-job-duration" required placeholder="2022 - Present"></div>
+                <div class="input-group"><label>Job Description</label><textarea id="in-job-desc" rows="2" required placeholder="Responsibilities..."></textarea></div>
+            </div>
+            <hr style="border: 0; border-top: 1px solid var(--primary); margin: 30px 0; opacity: 0.3;">
+            <div class="grid-2">
+                <div class="input-group"><label>Degree</label><input type="text" id="in-degree" required placeholder="BSIT"></div>
+                <div class="input-group"><label>School</label><input type="text" id="in-school" required placeholder="EVSU"></div>
+            </div>
+            <div class="input-group"><label>Graduation Year</label><input type="text" id="in-grad-year" required placeholder="2026"></div>
+            <button type="submit">Generate Professional CV</button>
+        </form>
+    </div>
+
+    <div id="cv-section">
+        <div class="left-col">
+            <div class="profile-img-container">
+                <img id="out-pic" src="" alt="Profile Picture" class="profile-img">
+            </div>
+            <h3 class="left-section-title">Contact</h3>
+            <div class="contact-info">
+                <p><span>Email</span> <span id="out-email"></span></p>
+                <p><span>Phone</span> <span id="out-phone"></span></p>
+                <p><span>Location</span> <span id="out-address"></span></p>
+            </div>
+            <h3 class="left-section-title">Expertise</h3>
+            <ul class="skills-list" id="out-skills"></ul>
         </div>
-        
-        <div class="grid-2">
-            <div class="input-group"><label>Email</label><input type="email" name="email" required placeholder="stevene@evsu.edu.ph"></div>
-            <div class="input-group"><label>Phone</label><input type="text" name="phone" required placeholder="+63 912 345 6789"></div>
+
+        <div class="right-col">
+            <button class="btn-reset" id="resetBtn">Create New CV</button>
+            <div class="name-header">
+                <h1 id="out-name"></h1>
+                <h2 id="out-profession"></h2>
+            </div>
+            <p class="summary-text" id="out-summary"></p>
+
+            <h3 class="right-section-title">Experience</h3>
+            <div style="margin-bottom: 30px;">
+                <div class="timeline-header">
+                    <div class="timeline-title" id="out-job-title"></div>
+                    <div class="timeline-date" id="out-job-duration"></div>
+                </div>
+                <div class="timeline-subtitle" id="out-company"></div>
+                <div class="timeline-desc" id="out-job-desc"></div>
+            </div>
+
+            <h3 class="right-section-title">Education</h3>
+            <div>
+                <div class="timeline-header">
+                    <div class="timeline-title" id="out-degree"></div>
+                    <div class="timeline-date" id="out-grad-year"></div>
+                </div>
+                <div class="timeline-subtitle" id="out-school"></div>
+            </div>
         </div>
+    </div>
 
-        <div class="input-group"><label>Address</label><input type="text" name="address" required placeholder="Iloilo City, Philippines"></div>
-        
-        <div class="grid-2">
-            <div class="input-group"><label>Skills (comma separated)</label><input type="text" name="skills" required placeholder="PHP, HTML, Design"></div>
-            <div class="input-group"><label>Profile Picture</label><input type="file" name="profilePic" accept="image/*" required></div>
-        </div>
-
-        <div class="input-group"><label>Professional Summary</label><textarea name="summary" rows="3" required placeholder="Short bio..."></textarea></div>
-
-        <hr style="border: 0; border-top: 1px solid var(--primary); margin: 30px 0; opacity: 0.3;">
-
-        <div class="grid-2">
-            <div class="input-group"><label>Job Title</label><input type="text" name="exp_title" required placeholder="Web Developer"></div>
-            <div class="input-group"><label>Company</label><input type="text" name="exp_company" required placeholder="Tech Corp"></div>
-        </div>
-        <div class="grid-2">
-            <div class="input-group"><label>Duration</label><input type="text" name="exp_duration" required placeholder="2022 - Present"></div>
-            <div class="input-group"><label>Job Description</label><textarea name="exp_desc" rows="2" required placeholder="Responsibilities..."></textarea></div>
-        </div>
-
-        <hr style="border: 0; border-top: 1px solid var(--primary); margin: 30px 0; opacity: 0.3;">
-
-        <div class="grid-2">
-            <div class="input-group"><label>Degree</label><input type="text" name="edu_degree" required placeholder="BSIT"></div>
-            <div class="input-group"><label>School</label><input type="text" name="edu_school" required placeholder="EVSU"></div>
-        </div>
-        <div class="input-group"><label>Graduation Year</label><input type="text" name="edu_year" required placeholder="2026"></div>
-
-        <button type="submit">Generate Professional CV</button>
-    </form>
-</div>
-
+    <script src="script.js"></script>
 </body>
 </html>
